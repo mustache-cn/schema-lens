@@ -1,0 +1,70 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>cn.com.mustache.plugin.schemalens</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
+    <name>Schema Lens</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="steven@mustache.com.cn" url="https://mustache.com.cn">Mustache</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
+    <description><![CDATA[
+        <h2>SchemaLens - Comprehensive Database Schema Inspector</h2>
+        
+        <p>SchemaLens is a powerful DataGrip plugin that provides a comprehensive, tabbed interface for viewing database table structures. 
+        Inspect tables, indexes, foreign keys, triggers, constraints, and more—all in one convenient view.</p>
+        
+        <h3>✨ Key Features</h3>
+        <ul>
+            <li><b>📊 Structure Tab</b> - View detailed column information (name, type, nullability, defaults, primary keys, auto-increment, comments)</li>
+            <li><b>🔑 Index Tab</b> - Comprehensive index information (name, type, columns, uniqueness, comments)</li>
+            <li><b>🔗 Foreign Key Tab</b> - Complete foreign key relationships (columns, referenced tables, update/delete rules)</li>
+            <li><b>⚡ Trigger Tab</b> - View all table triggers (name, events, timing, statements, comments)</li>
+            <li><b>✅ Check Tab</b> - Inspect check constraints (name, condition, comments)</li>
+            <li><b>💬 Comment Tab</b> - View table-level comments with multi-line support</li>
+            <li><b>📝 SQL Preview Tab</b> - View complete CREATE TABLE statements with dark mode support</li>
+        </ul>
+        
+        <h3>🎯 Additional Features</h3>
+        <ul>
+            <li><b>Long Text Support</b> - Multi-line tooltips and double-click popup for viewing full content</li>
+            <li><b>Smart Rendering</b> - Automatic text wrapping and HTML escaping</li>
+            <li><b>Dark Mode</b> - Automatic theme adaptation</li>
+            <li><b>Performance Optimized</b> - Efficient data extraction and background loading</li>
+            <li><b>User-Friendly</b> - Clean, intuitive interface with copy-to-clipboard functionality</li>
+        </ul>
+        
+        <h3>🚀 Usage</h3>
+        <p>Right-click on any table in the Database tool window and select <b>"Table Structure"</b> to open the comprehensive schema viewer.</p>
+        
+        <h3>📋 Requirements</h3>
+        <p>DataGrip 2024.3 or later. Works with all databases supported by DataGrip (MySQL, PostgreSQL, Oracle, SQL Server, SQLite, and more).</p>
+        
+        <p><b>Open Source</b> - Licensed under Apache License 2.0</p>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.database</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileEditorProvider implementation="cn.com.mustache.plugin.schemalens.framework.TableStructureEditorProvider"/>
+    </extensions>
+
+    <actions>
+        <action id="SchemaLens.ViewTableStructure"
+                class="cn.com.mustache.plugin.schemalens.TableStructureAction"
+                text="Table Structure"
+                description="View table structure with SchemaLens"
+                icon="/icons/icon.svg">
+            <add-to-group group-id="DatabaseViewPopupMenu" anchor="before" relative-to-action="DatabaseView.Refresh" />
+        </action>
+    </actions>
+</idea-plugin>
